@@ -30,6 +30,17 @@ for rx in range(sheet.nrows):
    
  print "csid = " + sheet.cell_value(rx,0) + "\n"
  print "name = " + sheet.cell_value(rx,2) + " " + str(rating) + str(age) + " " + sheet.name + "\n"
- print "phone = " + str(sheet.cell_value(rx,4)) + "\n"
+
+ ### for phones check if it a number, if so, convert to string, strip trailing
+ ### decimals and remove space in the numbers
+
+ p = str(sheet.cell_value(rx,4))
+ t = sheet.cell_type(rx,4)
+ # Cell Types: 0=Empty, 1=Text, 2=Number, 3=Date, 4=Boolean, 5=Error, 6=Blank
+ if (t == 2) :
+   p = str(int(float(p)))
+ p = "".join(p.split())
+
+ print "phone = " + p + "\n"
  print "notes = " + sheet.cell_value(rx,7) + "\n"
  print "URL = " + "http://www.couchsuring.org/people/" + sheet.cell_value(rx,0) + "/"
