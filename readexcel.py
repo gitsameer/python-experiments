@@ -40,6 +40,7 @@ for rx in range(sheet.nrows):
  if (t == 2) :
    p = str(int(float(p)))
  p = "".join(p.split())
+ p = "".join(c for c in p if c.isdigit() or c == "+")
 
  print "phone = " + p + "\n"
  print "notes = " + sheet.cell_value(rx,7) + "\n"
