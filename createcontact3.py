@@ -29,7 +29,7 @@ def createUser (fn, ln, mobile, csid):
   groups = gd_client.GetGroupsFeed()
   for g in groups.entry:
     groupIDDict[g.title.text] = g.id.text
-    print g.title.text, g.id.text
+    #print g.title.text, g.id.text
 
   title = "John 111 Test"
   new_contact = gdata.contacts.data.ContactEntry()
@@ -84,7 +84,7 @@ def createUser (fn, ln, mobile, csid):
 
 
 
-def createUser3 (fn, ln, mobile, csid):
+def createUser3 (fn, ln, mobile, csid, group, notes):
   u = User()
   GDATA_VER_HEADER = 'GData-Version'
   additional_headers = {'GData-Version': 3.0}
@@ -146,6 +146,7 @@ def createUser3 (fn, ln, mobile, csid):
   '''
 
   new_contact.group_membership_info.append(gdata.contacts.GroupMembershipInfo(href=groupIDDict['CS'],deleted='false'))
+  new_contact.group_membership_info.append(gdata.contacts.GroupMembershipInfo(href=groupIDDict[group],deleted='false'))
 
   #print new_contact.ToString()
   print "---------------------------------------"
@@ -157,6 +158,7 @@ def createUser3 (fn, ln, mobile, csid):
     gd_client2.client_login(u.user,u.pwd,"My Contact")
     contact2 = gd_client2.GetContact(entry.id.text)
     print "-----------"
+    contact2.content = atom.data.Content(text=notes)
     contact2.name = gdata.data.Name(
      given_name=gdata.data.GivenName(fn),                  
      family_name=gdata.data.FamilyName(ln),

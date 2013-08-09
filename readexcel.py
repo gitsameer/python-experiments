@@ -2,7 +2,7 @@ import xlrd
 
 book = xlrd.open_workbook("/Users/sameersingh/Documents/Personal/Travel/CouchStatsNew.xls")
 
-sheet = book.sheet_by_name("St Petersburg")
+sheet = book.sheet_by_name("Murmansk")
 
 print sheet.name, sheet.nrows, sheet.ncols
 
@@ -22,7 +22,7 @@ for rx in range(sheet.nrows):
    rating = int(rating)
   
 
- age = sheet.cell_value(rx,5)
+ age = sheet.cell_value(rx,4)
  if type(age) == str:
    age =  25
  else:
@@ -34,8 +34,8 @@ for rx in range(sheet.nrows):
  ### for phones check if it a number, if so, convert to string, strip trailing
  ### decimals and remove space in the numbers
 
- p = str(sheet.cell_value(rx,4))
- t = sheet.cell_type(rx,4)
+ p = str(sheet.cell_value(rx,5))
+ t = sheet.cell_type(rx,5)
  # Cell Types: 0=Empty, 1=Text, 2=Number, 3=Date, 4=Boolean, 5=Error, 6=Blank
  if (t == 2) :
    p = str(int(float(p)))
@@ -44,4 +44,4 @@ for rx in range(sheet.nrows):
 
  print "phone = " + p + "\n"
  print "notes = " + sheet.cell_value(rx,7) + "\n"
- print "URL = " + "http://www.couchsuring.org/people/" + sheet.cell_value(rx,0) + "/"
+ print "URL = " + "http://www.couchsurfing.org/people/" + sheet.cell_value(rx,0) + "/"

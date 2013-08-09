@@ -5,6 +5,8 @@ import gdata.contacts.service
 from user import User
 from xml.dom import minidom
 from xml.etree.ElementTree import XML, fromstring, tostring
+
+K_GROUP='Murmansk'
  
 u = User()
 additional_headers = {'GData-Version' : '3.0' }
@@ -42,13 +44,14 @@ query = gdata.contacts.service.ContactsQuery()
 query.feed='/m8/feeds/contacts/default/full?max_results=1000'
 query.max_results = 10000
 query.updated_min = date
-query.group = groupIDDict['System Group: My Contacts']
+query.group = groupIDDict[K_GROUP]
  
 
 feed = gd_client.GetContactsFeed(query.ToUri())
  
 for contact in feed.entry:
-      print contact.phone_number
+      print contact.website[0].href
+      print contact.id.text
       print contact.title.text
       for phone in contact.phone_number:
         print rel_list[phone.rel] + ": " + phone.text
