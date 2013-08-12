@@ -78,10 +78,10 @@ def createUser3 (fn, ln, mobile, csid, group, notes, url):
   print "---------------------------------------"
   entry = gd_client.CreateContact(new_contact)
 
-  fname = url.split('/')[-1]
-  urlretrieve(url,fname)
-  gd_client.ChangePhoto(fname,entry.GetPhotoLink().href,content_type='image/jpeg', content_length=len)
-  #gd_client.ChangePhoto(l,entry.GetPhotoLink().href,content_type='image/jpeg', content_length=len)
+  if len(url)>0:
+    fname = url.split('/')[-1]
+    urlretrieve(url,fname)
+    gd_client.ChangePhoto(fname,entry.GetPhotoLink().href,content_type='image/jpeg', content_length=len)
 
   if entry:
     print entry.id
