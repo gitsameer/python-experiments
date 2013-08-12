@@ -1,3 +1,4 @@
+#import pdb
 import atom.data  
 import gdata
 import gdata.data
@@ -7,6 +8,7 @@ import gdata.contacts.client
 import gdata.contacts.service  
 import xml.etree.ElementTree as et
 from user import User
+from urllib import urlretrieve
 
 def createUser (fn, ln, mobile, csid):
   u = User()
@@ -152,17 +154,21 @@ def createUser3 (fn, ln, mobile, csid, group, notes):
   print "---------------------------------------"
   entry = gd_client.CreateContact(new_contact)
 
+  gd_client.ChangePhoto('test.jpg',entry.GetPhotoLink().href,content_type='image/jpeg', content_length=len)
+
   if entry:
     print entry.id
     gd_client2 = gdata.contacts.client.ContactsClient()
     gd_client2.client_login(u.user,u.pwd,"My Contact")
     contact2 = gd_client2.GetContact(entry.id.text)
-    print "-----------"
     contact2.content = atom.data.Content(text=notes)
     contact2.name = gdata.data.Name(
      given_name=gdata.data.GivenName(fn),                  
      family_name=gdata.data.FamilyName(ln),
     )
-    gd_client2.Update(contact2)
+
+   
+    entry2 = gd_client2.Update(contact2)
+
   else :
     print "error"
