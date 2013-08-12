@@ -12,10 +12,11 @@ def createFromExcel (sheetName):
   K_CSID_COL = 0
   K_FN_COL = 2
   K_LN_COL = 3
-  K_AGE_COL = 4
-  K_PHONE_COL = 5
+  K_AGE_COL = 5
+  K_PHONE_COL = 4
   K_RATING_COL = 6
   K_NOTES_COL = 7
+  K_PHOTO_COL = 8
 
   sheet = book.sheet_by_name(K_GROUP)
 
@@ -64,12 +65,12 @@ def createFromExcel (sheetName):
 
 
    notes = sheet.cell_value(rx,K_NOTES_COL)
-
+   url = sheet.cell_value(rx,K_PHOTO_COL).strip()
    if sheet.cell_value(rx,K_CSID_COL) in csIDContactIDDict:
      print "will update user " + sheet.cell_value(rx,2)
    else:
      print "will create user " + sheet.cell_value(rx,2)
-     createUser3(sheet.cell_value(rx,2), str(rating)+str(age) +  " " + K_GROUP, p,sheet.cell_value(rx,K_CSID_COL),K_GROUP,notes)
+     createUser3(sheet.cell_value(rx,2), str(rating)+str(age) +  " " + K_GROUP, p,sheet.cell_value(rx,K_CSID_COL),K_GROUP,notes,url)
 
 
-createFromExcel("Murmansk")
+createFromExcel("Nizhny Novgorod")
