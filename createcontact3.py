@@ -10,7 +10,7 @@ import xml.etree.ElementTree as et
 from user import User
 from urllib import urlretrieve
 
-def createUser3 (fn, ln, mobile, csid, group, notes, url):
+def createUser3 (fn, ln, mobile, csid, group, notes, url, hascsid):
   u = User()
   GDATA_VER_HEADER = 'GData-Version'
   additional_headers = {'GData-Version': 3.0}
@@ -30,7 +30,7 @@ def createUser3 (fn, ln, mobile, csid, group, notes, url):
   groups = gd_client.GetGroupsFeed()
   for g in groups.entry:
     groupIDDict[g.title.text] = g.id.text
-    print g.title.text, g.id.text
+    #print g.title.text, g.id.text
 
   title = "John 111 Test"
   new_contact = gdata.contacts.ContactEntry()
@@ -59,7 +59,10 @@ def createUser3 (fn, ln, mobile, csid, group, notes, url):
 
   # set the website TO FIGURE OUT THIS ONE
 
-  new_contact.website = gdata.contacts.Website(label='URL',href='http://couchsurfing.org/people/' + csid)
+  if hascsid:
+    new_contact.website = gdata.contacts.Website(label='URL',href='http://couchsurfing.org/profile.html?id=' + csid)
+  else:
+    new_contact.website = gdata.contacts.Website(label='URL',href='http://couchsurfing.org/people/' + csid)
 
   '''
   # Set user defined fields
